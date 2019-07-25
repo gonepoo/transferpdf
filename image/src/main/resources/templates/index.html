@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="baidu-site-verification" content="LZ4ErHsIJ4" />
+    <meta name="keywords" content="图片转字符画，动态图转字符画，jpg转字符画，gif转字符画">
+    <meta name="description" content="在线图片转字符画，可以设置清晰度，可以设置自定义字符，可以设置是否为彩图，可以上传各种格式图片，包括动态图片，gif图片等，免费下载无广告无会员无弹窗">
+    <title>图片转字符画</title>
+    <style type="text/css">
+        #toggle-button{
+            display: none;
+        }
+        .button-label{
+            position: relative;
+            display: inline-block;
+            width: 80px;
+            background-color: #ccc;
+            border: 1px solid #ccc;
+            border-radius: 30px;
+            cursor: pointer;
+        }
+        .circle{
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background-color: #fff;
+        }
+        .button-label .text {
+            line-height: 30px;
+            font-size: 18px;
+
+            /*
+            用来阻止页面文字被选中，出现蓝色
+            可以将下面两行代码注释掉来查看区别
+            */
+            -webkit-user-select: none;
+            user-select: none;
+        }
+        .on {
+            color: #fff;
+            display: none;
+            text-indent: 10px;
+        }
+        .off {
+            color: #fff;
+            display: inline-block;
+            text-indent: 53px;
+        }
+        .button-label .circle{
+            left: 0;
+            transition: all 0.3s;/*transition过度，时间为0.3秒*/
+        }
+
+        /*
+        以下是checked被选中后，紧跟checked标签后面label的样式。
+        例如：div+p 选择所有紧接着<div>元素之后的<p>元素
+        */
+        #toggle-button:checked + label.button-label .circle{
+            left: 50px;
+        }
+        #toggle-button:checked + label.button-label .on{
+            display: inline-block;
+        }
+        #toggle-button:checked + label.button-label .off{
+            display: none;
+        }
+        #toggle-button:checked + label.button-label{
+            background-color: #33FF66;
+        }
+    </style>
+</head>
+<body>
+<div>
+    <form method="POST" enctype="multipart/form-data" action="/uploads/upload1" target="nm_iframe">
+        <p>
+            <h1>图片转字符画</h1>
+            <h4>文件上传</h4>
+            <input type="file" name="file"/>
+        </p>
+        <p>
+            <h4>输入字符</h4>
+            <input type="text" name="text" value="@BQDOClo."/>
+        </p>
+        <p>
+            <h4 id="num">调整清晰 ( 5 )</h4>
+            <input type="range" id="number" name="number" value="5" min="1" max="20" onchange="change()" />
+        </p>
+            <h4>是否彩色</h4>
+            <input type="hidden" id="color" name="color" value="0"/>
+            <input type="checkbox" id="toggle-button" onchange="checkColor()" />
+            <!--label中的for跟input的id绑定。作用是在点击label时选中input或者取消选中input-->
+            <label for="toggle-button" class="button-label">
+                <span class="circle"></span>
+                <span class="text on" value="1">是</span>
+                <span class="text off" value="0">否</span>
+            </label>
+        </p>
+        <p>
+            <h4>上传文件</h4>
+            <input type="submit" value="上传文件"/>
+        </p>
+        <p>
+            <h4>下载文件</h4>
+            <div>
+                <a href="/uploads/download"><input type="button" value="下载文件" /></a>
+            </div>
+        <p>
+    </form>
+    <iframe id="id_iframe" name="nm_iframe" style="display:none;"></iframe>
+</div>
+</body>
+</html>
+<script type="text/javascript">
+    function change() {
+        var str = document.getElementById("number").value;
+        document.getElementById("num").innerText = "调整清晰" + " ( " + str + " ) ";
+
+    }
+    function checkColor() {
+        var color = document.getElementById("toggle-button");
+        if(color.checked){
+            document.getElementById("color").value = "1";
+        }else{
+            document.getElementById("color").value = "0";
+        }
+    }
+
+</script>
+
+<script>
+    (function(){
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https'){
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else{
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
